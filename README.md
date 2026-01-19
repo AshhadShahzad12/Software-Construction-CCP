@@ -18,7 +18,7 @@ The system demonstrates correct implementation of domain classes, object relatio
 
 ## Project Structure
 
-CCP-CHARAN-CS
+CCP-ASHHAD-CS
 
 │
 
