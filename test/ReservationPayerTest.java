@@ -1,17 +1,41 @@
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReservationPayerTest {
+class ReserverPayerTest {
 
     @Test
-    void testValidPayer() {
-        CreditCard c = new CreditCard("1234567890");
-        ReservationPayer rp = ReservationPayer.create(1, c);
-        assertNotNull(rp);
+    void testCreateReserverPayerValid() {
+        ReserverPayer payer = ReserverPayer.create("1234-5678-9012", "RP001");
+
+        assertNotNull(payer);
     }
 
     @Test
-    void testNullCardThrows() {
-        assertThrows(IllegalArgumentException.class, () -> new ReservationPayer(1, null));
+    void testCreateReserverPayerWithNullCardThrowsException() {
+        Exception ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> ReserverPayer.create(null, "RP001")
+        );
+
+        assertEquals("Invalid reserver payer data", ex.getMessage());
+    }
+
+    @Test
+    void testCreateReserverPayerWithNullIdThrowsException() {
+        Exception ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> ReserverPayer.create("1234-5678-9012", null)
+        );
+
+        assertEquals("Invalid reserver payer data", ex.getMessage());
+    }
+
+    @Test
+    void testCreateReserverPayerWithBothNullThrowsException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ReserverPayer.create(null, null)
+        );
     }
 }

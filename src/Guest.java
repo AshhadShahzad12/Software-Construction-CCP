@@ -14,4 +14,8 @@ public class Guest {
         }
         return new Guest(name, addressDetails);
     }
+
+    public String getGuestName() {
+        return name;
+    }
 }

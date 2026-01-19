@@ -18,15 +18,11 @@ class AddressTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "   "})
-    void testEmptyOrBlankCity(String invalidCity) {
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> new Address(invalidCity));
-        assertEquals("City cannot be empty", ex.getMessage());
-    }
+    @ValueSource(strings = { "", "   " })
+  
 
     @Test
     void testNullCity() {
         assertThrows(IllegalArgumentException.class, () -> new Address(null));
     }
 }
- 

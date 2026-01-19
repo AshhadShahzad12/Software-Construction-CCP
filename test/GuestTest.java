@@ -1,29 +1,42 @@
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GuestTest {
 
     @Test
-    void testCreateGuestNormal() {
-        Name name = new Name("Ali");
-        Address address = new Address("Karachi");
+    void testCreateGuestSuccessfully() {
+        Guest guest = Guest.create("Ali", "Karachi");
 
-        Guest guest = Guest.create(name, address);
-
+        assertNotNull(guest);
         assertEquals("Ali", guest.getGuestName());
     }
 
     @Test
-    void testNullNameThrows() {
-        Address address = new Address("Karachi");
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> new Guest(null, address));
-        assertEquals("Guest data cannot be null", ex.getMessage());
+    void testNullNameThrowsException() {
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> Guest.create(null, "Karachi")
+        );
+
+        assertEquals("Invalid guest data", exception.getMessage());
     }
 
     @Test
-    void testNullAddressThrows() {
-        Name name = new Name("Ali");
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> new Guest(name, null));
-        assertEquals("Guest data cannot be null", ex.getMessage());
+    void testNullAddressThrowsException() {
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> Guest.create("Ali", null)
+        );
+
+        assertEquals("Invalid guest data", exception.getMessage());
+    }
+
+    @Test
+    void testBothNullThrowsException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Guest.create(null, null)
+        );
     }
 }

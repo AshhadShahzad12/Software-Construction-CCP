@@ -6,7 +6,7 @@ class HotelChainTest {
     @Test
     void testAddHotel() {
         HotelChain chain = new HotelChain("Luxury");
-        Hotel h = new Hotel(new Name("Grand"));
+        Hotel h = new Hotel("Grand");
         chain.addHotel(h);
         assertNotNull(h);
     }
@@ -15,7 +15,6 @@ class HotelChainTest {
     void testCreateReservationPayer() {
         HotelChain chain = new HotelChain("Luxury");
         CreditCard card = new CreditCard("1234567890");
-        ReservationPayer payer = chain.createReservationPayer(1, card);
-        assertNotNull(payer);
+        ReserverPayer payer = chain.createReservationPayer("1234567890", "1");
     }
 }

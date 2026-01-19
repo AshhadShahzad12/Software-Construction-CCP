@@ -20,4 +20,8 @@ public class Hotel {
     public boolean available(Room room) {
         return room != null && !room.isOccupied();
     }
+
+    public String getHotelName() {
+        return name;
+    }
 }

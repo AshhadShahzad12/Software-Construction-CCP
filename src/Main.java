@@ -1,79 +1,54 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Main {
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
-        
-        System.out.println("   HOTEL RESERVATION SYSTEM STARTED   ");
-        
-        // 1. Create Hotel Chain
-        HotelChain chain = new HotelChain("Luxury Chain");
-        System.out.println("Hotel Chain created.");
+                System.out.println("===== HOTEL RESERVATION SYSTEM STARTED =====");
 
-        // 2. Create Hotel
-        Hotel hotel = new Hotel(new Name("Grand Hotel"));
-        System.out.println("Hotel created: Grand Hotel");
+                // 1. Create Hotel Chain
+                HotelChain chain = new HotelChain("Luxury Chain");
+                System.out.println("Hotel Chain created.");
 
-        // 3. Create Rooms
-        Room room101 = new Room(101);
-        Room room102 = new Room(102);
-        hotel.addRoom(room101);
-        hotel.addRoom(room102);
+                // 2. Create Hotel
+                Hotel hotel = new Hotel("Grand Hotel");
+                System.out.println("Hotel created: " + hotel.getHotelName());
 
-        // 4. Create Guests
-        Guest guest1 = Guest.create(
-                new Name("Ali"),
-                new Address("Karachi")
-        );
+                // 3. Create Rooms
+                Room room101 = new Room(101);
+                Room room102 = new Room(102);
+                System.out.println("Rooms created: 101, 102");
 
-        Guest guest2 = Guest.create(
-                new Name("Ahmed"),
-                new Address("Lahore")
-        );
+                // 4. Create Guests
+                Guest guest1 = Guest.create("Ali", "Karachi");
 
-        System.out.println(" Guests created: Ali & Ahmed");
+                Guest guest2 = Guest.create("Ahmed", "Lahore");
 
-        // 5. Assign Guest 1 to Room 101
-        System.out.println("\n--- Assigning Guest Ali to Room 101 ---");
-        room101.createGuest(guest1);
+                System.out.println("Guests created: Ali & Ahmed");
 
-        // 6. Try assigning Guest 2 to SAME Room 101
-        System.out.println("\n--- Trying to assign Ahmed to SAME Room 101 ---");
-        room101.createGuest(guest2);
+                // 5. Assign Guest 1 to Room 101
+                System.out.println("\n--- Assigning Ali to Room 101 ---");
+                room101.assignGuest(guest1);
 
-        // 7. Create Reservation (1st time)
-        System.out.println("\n--- Creating Reservation (First Attempt) ---");
-        boolean reservation1 = hotel.createReservation();
+                // 6. Try assigning Guest 2 to SAME Room 101
+                System.out.println("\n--- Trying to assign Ahmed to SAME Room 101 ---");
+                room101.assignGuest(guest2);
 
-        // 8. Occupy second room
-        System.out.println("\n--- Assigning Ahmed to Room 102 ---");
-        room102.createGuest(guest2);
+                // 7. Assign Guest 2 to Room 102
+                System.out.println("\n--- Assigning Ahmed to Room 102 ---");
+                room102.assignGuest(guest2);
 
-        // 9. Try creating reservation again (all rooms occupied)
-        System.out.println("\n--- Creating Reservation (Second Attempt) ---");
-        boolean reservation2 = hotel.createReservation();
+                // 8. Create Reservation
+                System.out.println("\n--- Creating Reservation ---");
+                Reservation reservation = Reservation.create(
+                                LocalDate.now(),
+                                LocalDate.now().plusDays(2),
+                                101);
+                System.out.println("Reservation created successfully.");
 
-        // 10. Create Reservation object (for demo)
-        Reservation reservation = Reservation.create(
-                new Date(),
-                new Date(),
-                1
-        );
-        System.out.println(" Reservation object created.");
-
-        // 11. Payment
-        CreditCard card = new CreditCard("123456789012");
-        ReservationPayer payer = ReservationPayer.create(1, card);
-        System.out.println("Reservation payment details added.");
-
-        // 12. Hotel Chain operations
-        chain.addHotel(hotel);
-        chain.makeReservation();
-        chain.checkInGuest();
-        chain.checkOutGuest();
-
-        System.out.println("   SYSTEM EXECUTED SUCCESSFULLY       ");
-       
-    }
+                // 9. Payment
+                // CreditCard card = new CreditCard("1234567890");
+                ReserverPayer payer = ReserverPayer.create("1234567890", "1");
+                System.out.println("Reservation payment completed with detail: " + payer);
+        }
 }
